@@ -1,3 +1,12 @@
 micronaut:
   application:
     name: demo
+  server:
+    port: ${SERVER_PORT:8080}
+hello:
+  world:
+    message: "Hello from application.xml"
+    translation:
+      de: "Hallo Welt"
+      en: "Hello World"
+
