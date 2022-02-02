@@ -1,1 +1,1 @@
-GET localhost:8090/symbols
+GET http://localhost:8090/symbols
