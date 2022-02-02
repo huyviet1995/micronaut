@@ -6,7 +6,6 @@ import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +29,7 @@ public class InMemoryStore {
 
     private void addNewSymbol() {
         var symbol = new Symbol(faker.stock().nsdqSymbol());
-        symbols.put(symbol.getValue(), symbol);
+        symbols.put(symbol.value(), symbol);
         LOG.debug("Added symbol");
     }
 

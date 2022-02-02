@@ -15,8 +15,8 @@
 
   <properties>
     <packaging>jar</packaging>
-    <jdk.version>11</jdk.version>
-    <release.version>11</release.version>
+    <jdk.version>16</jdk.version>
+    <release.version>16</release.version>
     <micronaut.version>3.2.7</micronaut.version>
     <exec.mainClass>com.example.Application</exec.mainClass>
     <micronaut.runtime>netty</micronaut.runtime>
@@ -112,6 +112,8 @@
             <arg>-Amicronaut.processing.group=com.example</arg>
             <arg>-Amicronaut.processing.module=demo</arg>
           </compilerArgs>
+            <source>16</source>
+            <target>16</target>
         </configuration>
       </plugin>
     </plugins>

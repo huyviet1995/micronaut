@@ -48,12 +48,9 @@ public class SymbolsControllerTest {
     @Test
     void symbolsEndpointReturnsTheCorrectSymbol() throws JsonProcessingException {
         var testSymbol = new Symbol("TEST");
-        inMemoryStore.getSymbols().put(testSymbol.getValue(), testSymbol);
-        var response = client.toBlocking().retrieve("/" + testSymbol.getValue());
-        var expected = new HashMap<String, String>();
-        expected.put("value", "TEST");
-        ObjectMapper objectMapper = new ObjectMapper();
-        var formattedExpected = objectMapper.writeValueAsString(expected);
-        Assertions.assertEquals(formattedExpected, response);
+        inMemoryStore.getSymbols().put(testSymbol.value(), testSymbol);
+        var response = client.toBlocking().exchange("/" + testSymbol.value(), Symbol.class);
+        Assertions.assertEquals(HttpStatus.OK, response.getStatus());
+        Assertions.assertEquals(testSymbol, response.getBody().get());
     }
 }
