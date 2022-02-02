@@ -29,11 +29,12 @@ public class SymbolsControllerTest {
     @Client("/symbols")
     HttpClient client;
 
+    private static final Logger LOG = LoggerFactory.getLogger(SymbolsControllerTest.class);
+
     @BeforeEach
     void setup() {
         inMemoryStore.initializeWith(10);
     }
-    private static final Logger LOG = LoggerFactory.getLogger(SymbolsControllerTest.class);
 
     @Inject
     InMemoryStore inMemoryStore;
@@ -52,5 +53,12 @@ public class SymbolsControllerTest {
         var response = client.toBlocking().exchange("/" + testSymbol.value(), Symbol.class);
         Assertions.assertEquals(HttpStatus.OK, response.getStatus());
         Assertions.assertEquals(testSymbol, response.getBody().get());
+    }
+
+    @Test
+    void symbolsEndpointReturnsListOfSymbolsTakingQueryParametersIntoAccount() {
+        var response = client.toBlocking().exchange("/filter?max=10", JsonNode.class);
+        Assertions.assertEquals(HttpStatus.OK, response.getStatus());
+        Assertions.assertEquals(10, response.getBody().get().size());
     }
 }
