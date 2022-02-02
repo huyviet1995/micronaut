@@ -64,5 +64,9 @@ public class SymbolsControllerTest {
         var responseOffSet7 = client.toBlocking().exchange("/filter?max=10&offset=7", JsonNode.class);
         Assertions.assertEquals(HttpStatus.OK, responseOffSet7.getStatus());
         Assertions.assertEquals(3, responseOffSet7.getBody().get().size());
+
+        var responseMax2Offset7 = client.toBlocking().exchange("/filter?max=2&offset=7", JsonNode.class);
+        Assertions.assertEquals(HttpStatus.OK, responseMax2Offset7.getStatus());
+        Assertions.assertEquals(2, responseMax2Offset7.getBody().get().size());
     }
 }
