@@ -1,6 +1,6 @@
 package com.example.broker;
 
-public class Symbol {
+public final class Symbol {
     String value;
 
     public Symbol(String value) {
