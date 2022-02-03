@@ -3,6 +3,7 @@ package com.example.broker.wallet;
 import com.example.broker.api.RestApiResponse;
 import com.example.broker.data.InMemoryAccountStore;
 import com.example.broker.wallet.error.CustomError;
+import com.example.broker.wallet.error.FiatCurrencyNotSupportedException;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.MediaType;
@@ -36,13 +37,15 @@ public record WalletController(InMemoryAccountStore store) {
                     String.format("Only %s are supported as currency", SUPPORTED_FIAT_CURRENCY)
             ));
         }
-        var wallet = store.depositToWallet(deposit)
+        var wallet = store.depositToWallet(deposit);
         return HttpResponse.ok();
     }
 
     @Post(value="/withdraw", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
     public HttpResponse<Void> withdrawFiatMoney(@Body WithdrawFiatMoney withdraw) {
+        if (!SUPPORTED_FIAT_CURRENCY.contains(withdraw.symbol().value())) {
+            throw new FiatCurrencyNotSupportedException(String.format("Only %s are supported", SUPPORTED_FIAT_CURRENCY));
+        }
         return HttpResponse.ok();
     }
-
 }
