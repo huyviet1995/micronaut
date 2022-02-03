@@ -64,4 +64,17 @@ public class WatchListControllerTest {
         Assertions.assertEquals(HttpStatus.OK, added.getStatus());
         Assertions.assertEquals(symbols, inMemoryAccountStore.getWatchList(TEST_ACCOUNT_ID).symbols());
     }
+
+    @Test
+    void canDeleteWatchList() {
+        inMemoryAccountStore.updateWatchList(TEST_ACCOUNT_ID, new WatchList(Stream.of("AAPL").map(Symbol::new).toList()));
+        final var request = HttpRequest.DELETE("/" + TEST_ACCOUNT_ID.toString());
+        LOG.debug(request.getUri().toString());
+        final HttpResponse response = client.toBlocking().exchange(request, String.class);
+        // Check if the response is actually the accountId.
+        Assertions.assertEquals(HttpStatus.OK, response.getStatus());
+        Assertions.assertEquals(TEST_ACCOUNT_ID.toString(), response.getBody().get());
+        // Check if the
+        Assertions.assertEquals(0, inMemoryAccountStore.getWatchList(TEST_ACCOUNT_ID).symbols().size());
+    }
 }
