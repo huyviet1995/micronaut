@@ -13,8 +13,8 @@ import java.util.stream.IntStream;
 
 @Singleton
 public class InMemoryStore {
-    private final Map<String, Symbol> symbols = new HashMap<String, Symbol>();
     private static final Logger LOG = LoggerFactory.getLogger(InMemoryStore.class);
+    private final Map<String, Symbol> symbols = new HashMap<String, Symbol>();
     private final Faker faker = new Faker();
 
     @PostConstruct

@@ -24,7 +24,7 @@ import java.util.stream.Stream;
 public class WatchListControllerTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(WatchListControllerTest.class);
-    private static final UUID TEST_ACCOUNT_ID = WatchListController.ACCOUNT_ID;
+    private static final UUID TEST_ACCOUNT_ID = InMemoryAccountStore.ACCOUNT_ID;
 
     @Inject
     @Client("/account/watchlist")
