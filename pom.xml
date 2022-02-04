@@ -46,12 +46,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <version>1.18.22</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
       <scope>test</scope>
@@ -70,6 +64,12 @@
       <groupId>io.micronaut</groupId>
       <artifactId>micronaut-http-server-netty</artifactId>
       <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.22</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>io.micronaut</groupId>
@@ -118,6 +118,8 @@
             <arg>-Amicronaut.processing.group=com.example</arg>
             <arg>-Amicronaut.processing.module=demo</arg>
           </compilerArgs>
+            <source>16</source>
+            <target>16</target>
         </configuration>
       </plugin>
     </plugins>
