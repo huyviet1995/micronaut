@@ -39,14 +39,15 @@ public record WalletController(InMemoryAccountStore store) {
             ));
         }
         var wallet = store.depositToWallet(deposit);
-        return HttpResponse.ok();
+        return HttpResponse.ok().body(wallet);
     }
 
     @Post(value="/withdraw", consumes = MediaType.APPLICATION_JSON, produces = MediaType.APPLICATION_JSON)
-    public HttpResponse<Void> withdrawFiatMoney(@Body WithdrawFiatMoney withdraw) {
+    public HttpResponse<Wallet> withdrawFiatMoney(@Body WithdrawFiatMoney withdraw) {
         if (!SUPPORTED_FIAT_CURRENCY.contains(withdraw.symbol().value())) {
             throw new FiatCurrencyNotSupportedException(String.format("Only %s are supported", SUPPORTED_FIAT_CURRENCY));
         }
-        return HttpResponse.ok();
+        var wallet = store.withdrawFromWallet(withdraw);
+        return HttpResponse.ok().body(wallet);
     }
 }

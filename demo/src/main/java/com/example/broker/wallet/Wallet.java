@@ -23,4 +23,14 @@ public record Wallet(
                 this.locked
         );
     }
+
+    public Wallet subtractAvailable(BigDecimal amountToRemove) {
+        return new Wallet(
+                this.accountId,
+                this.walletId,
+                this.symbol,
+                this.available.subtract(amountToRemove),
+                this.locked
+        );
+    }
 }

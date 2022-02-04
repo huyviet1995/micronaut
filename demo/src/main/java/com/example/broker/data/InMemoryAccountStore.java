@@ -2,6 +2,7 @@ package com.example.broker.data;
 
 import com.example.broker.wallet.DepositFiatMoney;
 import com.example.broker.wallet.Wallet;
+import com.example.broker.wallet.WithdrawFiatMoney;
 import com.example.broker.watchlist.WatchList;
 import jakarta.inject.Singleton;
 
@@ -41,6 +42,15 @@ public class InMemoryAccountStore {
 
         var oldWallet = Optional.ofNullable(wallets.get(deposit.walletId())).orElse(new Wallet(ACCOUNT_ID, deposit.walletId(), deposit.symbol(), BigDecimal.ZERO, BigDecimal.ZERO));
         var newWallet = oldWallet.addAvailable(deposit.amount());
+        wallets.put(newWallet.walletId(), newWallet);
+        walletsPerAccount.put(newWallet.accountId(), wallets);
+        return newWallet;
+    }
+    public Wallet withdrawFromWallet(WithdrawFiatMoney withdraw) {
+        final var wallets = Optional.ofNullable(walletsPerAccount.get(withdraw.accountId())).orElse(new HashMap<>());
+
+        var oldWallet = Optional.ofNullable(wallets.get(withdraw.walletId())).orElse(new Wallet(ACCOUNT_ID, withdraw.walletId(), withdraw.symbol(), BigDecimal.ZERO, BigDecimal.ZERO));
+        var newWallet = oldWallet.subtractAvailable(withdraw.amount());
         wallets.put(newWallet.walletId(), newWallet);
         walletsPerAccount.put(newWallet.accountId(), wallets);
         return newWallet;
