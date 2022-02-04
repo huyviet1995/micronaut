@@ -3,6 +3,14 @@ micronaut:
     name: demo
   server:
     port: ${SERVER_PORT:8080}
+  security:
+    authentication: bearer
+    token:
+      jwt:
+        signatures:
+          secret:
+            generator:
+              secret: changeThisSecret
 hello:
   world:
     message: "Hello from application.xml"
