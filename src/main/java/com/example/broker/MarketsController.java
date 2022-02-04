@@ -22,5 +22,6 @@ public class MarketsController {
     @Get("/")
     public HttpResponse<List<String>> all() {
         return HttpResponse.ok().body( store.getAllSymbols().stream().map(entry -> entry.getValue()).collect(Collectors.toList()) );
+//        return HttpResponse.ok().body(store.getAllSymbols());
     }
 }
