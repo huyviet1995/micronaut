@@ -7,6 +7,7 @@ import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Controller("/markets")
@@ -19,7 +20,7 @@ public class MarketsController {
     }
 
     @Get("/")
-    public HttpResponse<List<Symbol>> all() {
-        return HttpResponse.ok().body( store.getAllSymbols() );
+    public HttpResponse<List<String>> all() {
+        return HttpResponse.ok().body( store.getAllSymbols().stream().map(entry -> entry.getValue()).collect(Collectors.toList()) );
     }
 }
