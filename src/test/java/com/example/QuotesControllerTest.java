@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.broker.error.CustomError;
 import com.example.broker.model.Quote;
 import com.example.broker.model.Symbol;
 import com.example.broker.store.InMemoryStore;
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 @MicronautTest
 public class QuotesControllerTest {
@@ -40,14 +42,20 @@ public class QuotesControllerTest {
     @Test
     void returnsNotFoundOnUnsupportedSymbol() {
         try {
-            client.toBlocking().retrieve(HttpRequest.GET("/quotes/unsuppported"));
+            client.toBlocking().retrieve(HttpRequest.GET("/quotes/unsupported"));
         } catch (HttpClientResponseException e) {
             Assertions.assertEquals(HttpStatus.NOT_FOUND, e.getResponse().getStatus());
+            final Optional<CustomError> customError = e.getResponse().getBody(CustomError.class);
+            Assertions.assertTrue(customError.isPresent());
+            Assertions.assertEquals(404, customError.get().getStatus());
+            Assertions.assertEquals("NOT_FOUND", customError.get().getError());
+            Assertions.assertEquals("Quote for symbol not found", customError.get().getMessage());
+            Assertions.assertEquals("/quotes/unsupported", customError.get().getPath());
         }
     }
 
     private Quote initRandomQuote(Symbol symbol) {
-        return new Quote(symbol, randomValue(), randomValue(), randomValue(), randomValue());
+        return Quote.builder().symbol(symbol).bid(randomValue()).volumn(randomValue()).ask(randomValue()).lastPrice(randomValue()).build();
     }
 
     private BigDecimal randomValue() {

@@ -28,8 +28,8 @@ public class QuotesController {
                     .builder()
                     .status(HttpStatus.NOT_FOUND.getCode())
                     .error(HttpStatus.NOT_FOUND.name())
-                    .message("Quote symbol not available")
-                    .path("/quote" + symbol)
+                    .message("Quote for symbol not found")
+                    .path("/quotes/" + symbol)
                     .build();
             return HttpResponse.notFound(notFound);
         }
