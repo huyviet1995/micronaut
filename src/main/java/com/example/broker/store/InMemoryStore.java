@@ -33,7 +33,7 @@ public class InMemoryStore {
     }
 
     private Quote initRandomQuote(Symbol symbol) {
-        return new Quote(symbol, randomValue(), randomValue(), randomValue(), randomValue());
+        return Quote.builder().symbol(symbol).bid(randomValue()).volumn(randomValue()).ask(randomValue()).lastPrice(randomValue()).build();
     }
 
     // Generate randomValue
