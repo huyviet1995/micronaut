@@ -3,10 +3,12 @@ package com.example.broker.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+@Builder
 public class Quote {
     private Symbol symbol;
     private BigDecimal bid;

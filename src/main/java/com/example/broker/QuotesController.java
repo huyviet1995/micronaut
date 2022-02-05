@@ -20,6 +20,9 @@ public class QuotesController {
     @Get("/{symbol}")
     public HttpResponse<Quote> getQuote(@PathVariable String symbol) {
         final Optional<Quote> quoteMaybe = store.fetchQuote(symbol);
+        if (quoteMaybe.isEmpty()) {
+            return HttpResponse.notFound();
+        }
         return HttpResponse.ok(quoteMaybe.get());
     }
 }

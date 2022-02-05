@@ -28,11 +28,11 @@ public class InMemoryStore {
                 .map(symbol -> new Symbol(symbol))
                 .collect(Collectors.toList());
         symbols.forEach(symbol -> {
-            cachedQuotes.put(symbol.getValue(), randomQuote(symbol));
+            cachedQuotes.put(symbol.getValue(), initRandomQuote(symbol));
         });
     }
 
-    private Quote randomQuote(Symbol symbol) {
+    private Quote initRandomQuote(Symbol symbol) {
         return new Quote(symbol, randomValue(), randomValue(), randomValue(), randomValue());
     }
 
