@@ -9,13 +9,10 @@ import io.micronaut.http.client.annotation.Client;
 import io.micronaut.json.tree.JsonNode;
 import io.micronaut.runtime.EmbeddedApplication;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
-import static org.assertj.core.api.Assertions.assertThat;
 import jakarta.inject.Inject;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
-import java.util.concurrent.ThreadLocalRandom;
 
 @MicronautTest
 public class QuotesControllerTest {
@@ -33,6 +30,7 @@ public class QuotesControllerTest {
         var apple = new Quote(new Symbol("APPL"), randomValue(), randomValue(), randomValue(), randomValue());
         store.update(apple);
         final var appleResult = client.toBlocking().retrieve(HttpRequest.GET("/quotes/APPL"), JsonNode.class);
+        // IThis line of code will cause an error. I will need to evalutate this later.
 //        assertThat(apple).isEqualToComparingFieldByField(appleResult);
     }
 
