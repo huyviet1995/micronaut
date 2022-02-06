@@ -111,6 +111,12 @@
     <dependency>
       <groupId>io.micronaut.beanvalidation</groupId>
       <artifactId>micronaut-hibernate-validator</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.micronaut</groupId>
+      <artifactId>micronaut-inject-java</artifactId>
+      <version>3.3.0-M1</version>
     </dependency>
   </dependencies>
 
