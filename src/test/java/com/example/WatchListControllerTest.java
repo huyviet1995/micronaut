@@ -58,4 +58,15 @@ public class WatchListControllerTest {
         Assertions.assertEquals(HttpStatus.OK, response.getStatus());
         Assertions.assertEquals(watchList, store.getWatchList(TEST_ACCOUNT_ID));
     }
+
+    @Test
+    void canDeleteWatchlistForAccount() {
+        final var symbols = Stream.of("APPL", "AMZN", "GOOGL").map(Symbol::new).collect(Collectors.toList());
+        WatchList watchList = new WatchList(symbols);
+        store.updateWatchList(TEST_ACCOUNT_ID, watchList);
+
+        final HttpResponse<Object> response = client.toBlocking().exchange(HttpRequest.DELETE("/watchlist/" + TEST_ACCOUNT_ID));
+        Assertions.assertEquals(HttpStatus.OK, response.getStatus());
+        Assertions.assertTrue(store.getWatchList(TEST_ACCOUNT_ID).getSymbols().isEmpty());
+    }
 }
