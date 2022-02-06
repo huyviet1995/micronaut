@@ -10,6 +10,7 @@ import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.spockframework.util.Assert;
 
 import java.util.UUID;
 
@@ -28,5 +29,6 @@ public class WatchListControllerTest {
     void returnsEmptyWatchListForAccount() {
         final WatchList result = client.toBlocking().retrieve("/watchlist", WatchList.class);
         Assertions.assertTrue(result.getSymbols().isEmpty());
+        Assertions.assertTrue(store.getWatchList(TEST_ACCOUNT_ID).getSymbols().isEmpty());
     }
 }
