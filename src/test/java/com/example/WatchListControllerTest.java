@@ -4,6 +4,9 @@ import com.example.broker.WatchListController;
 import com.example.broker.model.Symbol;
 import com.example.broker.model.WatchList;
 import com.example.broker.store.InMemoryAccountStore;
+import io.micronaut.http.HttpRequest;
+import io.micronaut.http.HttpResponse;
+import io.micronaut.http.HttpStatus;
 import io.micronaut.http.client.HttpClient;
 import io.micronaut.http.client.annotation.Client;
 import io.micronaut.runtime.EmbeddedApplication;
@@ -46,4 +49,13 @@ public class WatchListControllerTest {
         Assertions.assertEquals(3, store.getWatchList(TEST_ACCOUNT_ID).getSymbols().size());
     }
 
+    @Test
+    void canUpdateWatchListForAccount() {
+        final var symbols = Stream.of("APPL", "AMZN", "GOOGL").map(Symbol::new).collect(Collectors.toList());
+        WatchList watchList = new WatchList(symbols);
+
+        final HttpResponse<Object> response = client.toBlocking().exchange(HttpRequest.PUT("/watchlist", watchList));
+        Assertions.assertEquals(HttpStatus.OK, response.getStatus());
+        Assertions.assertEquals(watchList, store.getWatchList(TEST_ACCOUNT_ID));
+    }
 }
