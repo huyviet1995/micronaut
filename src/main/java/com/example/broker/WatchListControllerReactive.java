@@ -7,6 +7,7 @@ import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
+import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
 import jakarta.inject.Named;
@@ -32,12 +33,12 @@ public class WatchListControllerReactive {
 
     @Get(value="/single", produces = MediaType.APPLICATION_JSON)
     @ExecuteOn(TaskExecutors.IO)
-    public Single<WatchList> getAsSingle() {
+    public Flowable<WatchList> getAsSingle() {
         LOG.debug("getAsSingle {}", Thread.currentThread().getName());
         return Single.fromCallable(() -> {
             LOG.debug("getAsSingle {}", Thread.currentThread().getName());
             return store.getWatchList(ACCOUNT_ID);
-        }).subscribeOn(scheduler);
+        }).toFlowable().subscribeOn(scheduler);
     }
 
     @Get("/")
