@@ -3,7 +3,6 @@ package com.example;
 import com.example.broker.error.CustomError;
 import com.example.broker.model.Quote;
 import com.example.broker.model.Symbol;
-import com.example.broker.model.WatchList;
 import com.example.broker.store.InMemoryStore;
 import io.micronaut.core.type.Argument;
 import io.micronaut.http.HttpRequest;
@@ -17,8 +16,6 @@ import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.util.Optional;

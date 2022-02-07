@@ -67,6 +67,11 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>io.swagger.core.v3</groupId>
+      <artifactId>swagger-annotations</artifactId>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
       <groupId>io.micronaut</groupId>
       <artifactId>micronaut-http-server-netty</artifactId>
       <scope>compile</scope>
@@ -138,9 +143,12 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.9.0</version>
         <configuration>
           <!-- Uncomment to enable incremental compilation -->
           <!-- <useIncrementalCompilation>false</useIncrementalCompilation> -->
+          <fork>true</fork>
+          <executable>/opt/jdk-17/bin/javac</executable>
 
           <annotationProcessorPaths combine.children="append">
             <path>
@@ -148,19 +156,25 @@
               <artifactId>micronaut-http-validation</artifactId>
               <version>${micronaut.version}</version>
             </path>
-            <annotationProcessorPath>
-              <groupId>io.micronaut</groupId>
-              <artifactId>micronaut-inject-java</artifactId>
-              <version>${micronaut.version}</version>
-              <scope>testAnnotationProcessor</scope>
-            </annotationProcessorPath>
+            <path>
+              <groupId>org.projectlombok</groupId>
+              <artifactId>lombok</artifactId>
+              <version>${lombok.version}</version>
+            </path>
+            <path>
+              <groupId>io.micronaut.openapi</groupId>
+              <artifactId>micronaut-openapi</artifactId>
+              <version>4.0.0</version>
+            </path>
           </annotationProcessorPaths>
+          <fork>true</fork>
           <compilerArgs>
+            <arg>-J-Dmicronaut.openapi.views.specs=redoc.enabled=true,rapidoc.enabled=true,swagger-ui.enabled=true,swagger-ui.theme=flattop</arg>
             <arg>-Amicronaut.processing.group=com.example</arg>
             <arg>-Amicronaut.processing.module=demo</arg>
           </compilerArgs>
-            <source>16</source>
-            <target>16</target>
+          <source>16</source>
+          <target>16</target>
         </configuration>
       </plugin>
     </plugins>

@@ -1,6 +1,5 @@
 package com.example;
 
-import com.example.broker.model.Symbol;
 import io.micronaut.http.client.HttpClient;
 import io.micronaut.http.client.annotation.Client;
 import io.micronaut.runtime.EmbeddedApplication;
