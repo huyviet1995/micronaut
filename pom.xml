@@ -166,6 +166,11 @@
               <artifactId>micronaut-openapi</artifactId>
               <version>4.0.0</version>
             </path>
+            <path>
+              <groupId>io.micronaut.security</groupId>
+              <artifactId>micronaut-security-annotations</artifactId>
+              <version>${micronaut.security.version}</version>
+            </path>
           </annotationProcessorPaths>
           <fork>true</fork>
           <compilerArgs>
