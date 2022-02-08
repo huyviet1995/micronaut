@@ -15,6 +15,15 @@ micronaut:
       swagger-ui:
         paths: classpath:META-INF/swagger/views/swagger-ui
         mapping: /swagger-ui/**
+hello:
+  controller:
+    path: "/hello"
+  service:
+    greeting: "Hello from Service!"
+  config:
+    greeting:
+      de: "Hallo"
+      en: "Hello"
 netty:
   default:
     allocator:

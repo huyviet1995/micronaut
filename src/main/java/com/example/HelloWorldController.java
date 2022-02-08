@@ -7,7 +7,7 @@ import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 
 @Secured(SecurityRule.IS_ANONYMOUS)
-@Controller("${hello.controller.path:/hello}")
+@Controller("/hello")
 public class HelloWorldController {
 
     private final HelloWorldService service;
@@ -37,4 +37,5 @@ public class HelloWorldController {
     public Greeting json(){
         return new Greeting();
     }
+
 }

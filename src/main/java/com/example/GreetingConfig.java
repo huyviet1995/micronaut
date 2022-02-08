@@ -4,14 +4,15 @@ import javax.validation.constraints.NotBlank;
 
 import io.micronaut.context.annotation.ConfigurationInject;
 import io.micronaut.context.annotation.ConfigurationProperties;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 
 @ConfigurationProperties("hello.config.greeting")
+@Data
 public class GreetingConfig {
 
-    @Getter
     private final String de;
-    @Getter
     private final String en;
 
     @ConfigurationInject
