@@ -10,13 +10,12 @@ import io.micronaut.http.HttpStatus;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.client.HttpClient;
 import io.micronaut.http.client.annotation.Client;
+import io.micronaut.http.client.exceptions.HttpClientResponseException;
 import io.micronaut.runtime.EmbeddedApplication;
 import io.micronaut.rxjava2.http.client.RxHttpClient;
 import io.micronaut.security.authentication.UsernamePasswordCredentials;
 import io.micronaut.security.token.jwt.render.BearerAccessRefreshToken;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
-import io.reactivex.Flowable;
-import io.reactivex.FlowableConverter;
 import io.reactivex.Single;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Assertions;
@@ -24,10 +23,11 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.fail;
 
 @MicronautTest
 public class WatchListControllerReactiveTest {
@@ -41,6 +41,7 @@ public class WatchListControllerReactiveTest {
 
     @Inject InMemoryAccountStore store;
     private static final Logger LOG = LoggerFactory.getLogger(WatchListControllerReactive.class);
+    public static final String ACCOUNT_WATCHLIST = "/account/watchlist";
 
     private BearerAccessRefreshToken givenMyUserIsLoggedIn() {
         final UsernamePasswordCredentials credentials = new UsernamePasswordCredentials("my-user", "secret");
@@ -52,6 +53,16 @@ public class WatchListControllerReactiveTest {
         Assertions.assertEquals("my-user", response.body().getUsername());
         LOG.debug("LOGIN Access Token {}", token.getAccessToken(), token.getExpiresIn());
         return token;
+    }
+
+    @Test
+    void unauthorizedAccessIsForbidden() {
+        try {
+            client.toBlocking().retrieve(ACCOUNT_WATCHLIST);
+            fail("should fail if no exception is thrown");
+        } catch (HttpClientResponseException e) {
+            Assertions.assertEquals(HttpStatus.UNAUTHORIZED, e.getStatus());
+        }
     }
 
     @Test
