@@ -7,10 +7,13 @@ import com.example.broker.store.InMemoryAccountStore;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
+import io.micronaut.http.MediaType;
 import io.micronaut.http.client.HttpClient;
 import io.micronaut.http.client.annotation.Client;
 import io.micronaut.runtime.EmbeddedApplication;
 import io.micronaut.rxjava2.http.client.RxHttpClient;
+import io.micronaut.security.authentication.UsernamePasswordCredentials;
+import io.micronaut.security.token.jwt.render.BearerAccessRefreshToken;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableConverter;
@@ -33,7 +36,7 @@ public class WatchListControllerReactiveTest {
 
     @Inject EmbeddedApplication application;
 
-    @Inject @Client("/account")
+    @Inject @Client("/")
     RxHttpClient client;
 
     @Inject InMemoryAccountStore store;
@@ -41,7 +44,20 @@ public class WatchListControllerReactiveTest {
 
     @Test
     void returnsEmptyWatchListForAccount() {
-        final Single<WatchList> result = client.retrieve(HttpRequest.GET("/watchlist-reactive"), WatchList.class).singleOrError();
+        final UsernamePasswordCredentials credentials = new UsernamePasswordCredentials("my-user", "secret");
+        var login = HttpRequest.POST("/login", credentials);
+        final HttpResponse<BearerAccessRefreshToken> response = client.toBlocking().exchange(login, BearerAccessRefreshToken.class);
+        Assertions.assertEquals(HttpStatus.OK, response.getStatus());
+        final BearerAccessRefreshToken token = response.body();
+        Assertions.assertNotNull(token);;
+        Assertions.assertEquals("my-user", response.body().getUsername());
+        LOG.debug("LOGIN Access Token {}", token.getAccessToken(), token.getExpiresIn());
+
+        var request = HttpRequest.GET("/account/watchlist-reactive")
+                .accept(MediaType.APPLICATION_JSON)
+                .bearerAuth(token.getAccessToken());
+
+        final Single<WatchList> result = client.retrieve(request, WatchList.class).singleOrError();
         Assertions.assertTrue(result.blockingGet().getSymbols().isEmpty());
         Assertions.assertTrue(store.getWatchList(TEST_ACCOUNT_ID).getSymbols().isEmpty());
     }

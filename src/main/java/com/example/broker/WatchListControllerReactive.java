@@ -7,6 +7,8 @@ import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
 import io.micronaut.scheduling.TaskExecutors;
 import io.micronaut.scheduling.annotation.ExecuteOn;
+import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.rules.SecurityRule;
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
@@ -18,6 +20,7 @@ import io.reactivex.Single;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 
+@Secured(SecurityRule.IS_AUTHENTICATED)
 @Controller("/account/watchlist-reactive")
 public class WatchListControllerReactive {
 
