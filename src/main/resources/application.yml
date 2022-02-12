@@ -28,3 +28,17 @@ netty:
   default:
     allocator:
       max-order: 3
+# JSON Settings
+jackson:
+  property-naming-strategy: SNAKE_CASE
+  serialization:
+    writeDatesAsTimestamps: false
+    writeDateWithZoneId: true
+    writeDateTimestampsAsNanoseconds: false
+  deserialization:
+    failOnUnknownProperties: false
+  generator:
+    writeNumbersAsStrings: false
+    writeBigDecimalAsPlain: false
+
+
