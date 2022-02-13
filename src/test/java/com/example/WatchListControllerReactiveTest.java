@@ -5,15 +5,10 @@ import com.example.broker.WatchListControllerReactive;
 import com.example.broker.model.Symbol;
 import com.example.broker.model.WatchList;
 import com.example.broker.store.InMemoryAccountStore;
-import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
-import io.micronaut.http.MediaType;
-import io.micronaut.http.client.HttpClient;
 import io.micronaut.http.client.annotation.Client;
-import io.micronaut.http.client.exceptions.HttpClientResponseException;
 import io.micronaut.runtime.EmbeddedApplication;
-import io.micronaut.rxjava2.http.client.RxHttpClient;
 import io.micronaut.security.authentication.UsernamePasswordCredentials;
 import io.micronaut.security.token.jwt.render.BearerAccessRefreshToken;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
@@ -27,8 +22,6 @@ import org.slf4j.LoggerFactory;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.fail;
 
 @MicronautTest
 public class WatchListControllerReactiveTest {
