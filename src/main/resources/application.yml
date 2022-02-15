@@ -82,9 +82,8 @@ datasources:
     dialect: POSTGRES
 # micronaut-data-jpa
 jpa:
-  default:
     packages-to-json:
-      - "com.example.broker.persistence"
+      - "com.example.broker.persistence.jpa"
     properties:
       hibernate:
         show_sql: false
