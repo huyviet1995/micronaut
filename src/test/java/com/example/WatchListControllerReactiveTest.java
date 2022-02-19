@@ -2,8 +2,8 @@ package com.example;
 
 import com.example.broker.JWTWatchListClient;
 import com.example.broker.WatchListControllerReactive;
-import com.example.broker.model.Symbol;
-import com.example.broker.model.WatchList;
+import com.example.broker.persistence.model.Symbol;
+import com.example.broker.persistence.model.WatchList;
 import com.example.broker.store.InMemoryAccountStore;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;

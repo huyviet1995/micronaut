@@ -1,6 +1,6 @@
 package com.example.broker.store;
 
-import com.example.broker.model.WatchList;
+import com.example.broker.persistence.model.WatchList;
 import jakarta.inject.Singleton;
 
 import java.util.HashMap;

@@ -1,8 +1,8 @@
 package com.example;
 
 import com.example.broker.error.CustomError;
-import com.example.broker.model.Quote;
-import com.example.broker.model.Symbol;
+import com.example.broker.persistence.model.Quote;
+import com.example.broker.persistence.model.Symbol;
 import com.example.broker.store.InMemoryStore;
 import io.micronaut.core.type.Argument;
 import io.micronaut.http.HttpRequest;

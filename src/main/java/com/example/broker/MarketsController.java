@@ -1,6 +1,6 @@
 package com.example.broker;
 
-import com.example.broker.model.SymbolEntity;
+import com.example.broker.persistence.model.SymbolEntity;
 import com.example.broker.persistence.jpa.SymbolsRepository;
 import com.example.broker.store.InMemoryStore;
 import io.micronaut.http.HttpResponse;

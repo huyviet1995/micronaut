@@ -1,4 +1,4 @@
-package com.example.broker.model;
+package com.example.broker.persistence.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

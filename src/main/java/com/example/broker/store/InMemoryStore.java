@@ -1,7 +1,7 @@
 package com.example.broker.store;
 
-import com.example.broker.model.Quote;
-import com.example.broker.model.Symbol;
+import com.example.broker.persistence.model.Quote;
+import com.example.broker.persistence.model.Symbol;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

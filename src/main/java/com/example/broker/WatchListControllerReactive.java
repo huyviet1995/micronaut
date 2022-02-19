@@ -1,6 +1,6 @@
 package com.example.broker;
 
-import com.example.broker.model.WatchList;
+import com.example.broker.persistence.model.WatchList;
 import com.example.broker.store.InMemoryAccountStore;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;

@@ -2,7 +2,7 @@ package com.example.broker;
 
 import java.util.UUID;
 
-import com.example.broker.model.WatchList;
+import com.example.broker.persistence.model.WatchList;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Delete;
