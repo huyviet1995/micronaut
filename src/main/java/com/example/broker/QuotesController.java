@@ -78,10 +78,18 @@ public class QuotesController {
         return HttpResponse.ok(quoteMaybe.get());
     }
 
-
-
     @Get("/jpa")
     public List<QuoteEntity> getAllQuotesViaJPA() {
         return quotes.findAll();
+    }
+
+    @Get("/jpa/ordered/desc")
+    public List<QuoteEntity> orderedDesc() {
+        return quotes.listOrderByVolumeDesc();
+    }
+
+    @Get("/jpa/ordered/asc")
+    public List<QuoteEntity> listOrderByVolumeAsc() {
+       return quotes.listOrderByVolumeAsc();
     }
 }
