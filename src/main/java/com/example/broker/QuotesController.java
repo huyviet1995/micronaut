@@ -64,7 +64,7 @@ public class QuotesController {
     @Tag(name="quotes")
     @Get("/{symbol}/jpa")
     public HttpResponse getQuoteViaJPA(@PathVariable String symbol) {
-        final Optional<QuoteEntity> quoteMaybe = quotes.findBySymbol(new SymbolEntity(symbol));
+        final Optional<QuoteEntity> quoteMaybe = quotes.findBySymbolValue(symbol);
         if (quoteMaybe.isEmpty()) {
             final CustomError notFound = CustomError
                     .builder()

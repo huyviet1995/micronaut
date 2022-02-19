@@ -69,7 +69,7 @@ flyway:
   datasources:
     default:
       enabled: true
-      clean-schema: false
+      clean-schema: true
       schemas: mn
       default-schema: mn
 datasources:

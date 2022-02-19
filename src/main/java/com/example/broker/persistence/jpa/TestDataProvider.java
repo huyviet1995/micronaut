@@ -36,13 +36,13 @@ public class TestDataProvider {
     public void init(StartupEvent event) {
         LOG.debug("Adding test data for empty database was found!");
         if (symbols.findAll().isEmpty()) {
-            Stream.of("APPL", "AMZN", "FB", "TSLA").map(SymbolEntity::new).forEach(symbols::save);
+            Stream.of("AAPL", "AMZN", "FB", "TSLA").map(SymbolEntity::new).forEach(symbols::save);
         }
         if (quotes.findAll().isEmpty()) {
             LOG.info("Adding data test as empty database was found");
             symbols.findAll().forEach(symbol -> {
                 var quote = new QuoteEntity();
-                quote.setSymbol(symbol);;
+                quote.setSymbol(symbol);
                 quote.setAsk(randomValue());
                 quote.setBid(randomValue());
                 quote.setLastPrice(randomValue());
