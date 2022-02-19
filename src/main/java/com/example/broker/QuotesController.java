@@ -3,8 +3,8 @@ package com.example.broker;
 import com.example.broker.error.CustomError;
 import com.example.broker.persistence.jpa.QuotesRepository;
 import com.example.broker.persistence.model.Quote;
+import com.example.broker.persistence.model.QuoteDTO;
 import com.example.broker.persistence.model.QuoteEntity;
-import com.example.broker.persistence.model.SymbolEntity;
 import com.example.broker.store.InMemoryStore;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
@@ -64,7 +64,7 @@ public class QuotesController {
     @Tag(name="quotes")
     @Get("/{symbol}/jpa")
     public HttpResponse getQuoteViaJPA(@PathVariable String symbol) {
-        final Optional<QuoteEntity> quoteMaybe = quotes.findBySymbolValue(symbol);
+        final Optional<QuoteDTO> quoteMaybe = quotes.findBySymbolValue(symbol);
         if (quoteMaybe.isEmpty()) {
             final CustomError notFound = CustomError
                     .builder()
@@ -84,12 +84,12 @@ public class QuotesController {
     }
 
     @Get("/jpa/ordered/desc")
-    public List<QuoteEntity> orderedDesc() {
+    public List<QuoteDTO> orderedDesc() {
         return quotes.listOrderByVolumeDesc();
     }
 
     @Get("/jpa/ordered/asc")
-    public List<QuoteEntity> listOrderByVolumeAsc() {
+    public List<QuoteDTO> listOrderByVolumeAsc() {
        return quotes.listOrderByVolumeAsc();
     }
 }

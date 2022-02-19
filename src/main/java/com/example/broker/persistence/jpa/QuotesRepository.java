@@ -1,5 +1,6 @@
 package com.example.broker.persistence.jpa;
 
+import com.example.broker.persistence.model.QuoteDTO;
 import com.example.broker.persistence.model.QuoteEntity;
 import com.example.broker.persistence.model.SymbolEntity;
 import io.micronaut.data.annotation.Repository;
@@ -14,10 +15,10 @@ public interface QuotesRepository extends CrudRepository<QuoteEntity, Integer> {
     @Override
     List<QuoteEntity> findAll();
 
-    Optional<QuoteEntity> findBySymbolValue(String symbol);
+    Optional<QuoteDTO> findBySymbolValue(String symbol);
 
     // Ordering
-    List<QuoteEntity> listOrderByVolumeDesc();
+    List<QuoteDTO> listOrderByVolumeDesc();
 
-    List<QuoteEntity> listOrderByVolumeAsc();
+    List<QuoteDTO> listOrderByVolumeAsc();
 }
