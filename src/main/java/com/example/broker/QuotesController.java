@@ -109,4 +109,8 @@ public class QuotesController {
         return quotes.findByVolumeGreaterThan(myVolume, Pageable.from(myPage,2));
     }
 
+    @Get("jpa/pagination/{page}")
+    public List<QuoteDTO> allWithPagination(@PathVariable int page) {
+        return quotes.list(Pageable.from(page, 5)).getContent();
+    }
 }
