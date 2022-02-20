@@ -96,6 +96,6 @@ public class QuotesController {
 
     @Get("jpa/volume/{volume}")
     public List<QuoteDTO> volumeFilter(@PathVariable BigDecimal volume) {
-        return quotes.findByVolumeGreaterThan(volume);
+        return quotes.findByVolumeGreaterThanOrderByVolumeDesc(volume);
     }
 }

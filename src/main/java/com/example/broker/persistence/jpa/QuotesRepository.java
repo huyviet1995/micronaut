@@ -24,5 +24,5 @@ public interface QuotesRepository extends CrudRepository<QuoteEntity, Integer> {
     List<QuoteDTO> listOrderByVolumeAsc();
 
     // Filter
-    List<QuoteDTO> findByVolumeGreaterThan(BigDecimal volume);
+    List<QuoteDTO> findByVolumeGreaterThanOrderByVolumeDesc(BigDecimal volume);
 }
